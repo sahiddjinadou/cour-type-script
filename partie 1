@@ -1,0 +1,82 @@
+## Introduction ##
+
+ c'est un sur ensemble de javaScript. c'est du avce des types statics
+
+-- les avantages 
+1- ) Limite les erreurs ( spécifie ses erreur en amont )
+2- ) Meilleure auto completion
+3- ) Avoir une cible plus simple (typeScript peut etre converti en Es3 ou EsNext )
+
+-- les inconvenient 
+1- ) un outils suplimentaire
+2- ) un l'ecosysteme javaScript (si on utilise une librairie qui n'est pas typé type script va ralé )
+3- ) on perd en flexibilité (c'est une contrainte par rapport a javaScript)
+4- ) code moins lisible 
+
+-- Comment l'utiliser ? 
+conversion en javaScrpt
+- TypeScript (tsc)
+- Webpack (ts-loader)
+- parcel
+- Esbuild
+- vite
+
+--comment installer l'environement de travail
+
+** npm init -y : pour initialiser le projet
+** npm install typescript --save --dev: pour telecharger les dependances typeScript pour developpement 
+** npx tsc app.ts : pour compiler 
+** npx tsc src/app.ts --outDir dist : pour compiler et preciser la source de sorti
+** npx tsc --watch : lancer compilation automatique
+
+-- le fichier de configuration (tsconfig.json)
+{
+    "compilerOptions": {//la configuration du compilateur 
+        "outDir": "dist",// spécification du dossier de sortir
+        "target": "ES6" ,// pour dire en quel versionde javascript on souhaite compiler
+        "noEmitOnError": true, // si jamais il y a une erreur ca ne va pas convertir  votre erreur
+        "strict": true, // permet d'imposer le typoage
+},
+    "files": [
+        "src/app.ts"//on configure le fichier à compiler
+    ]
+}
+
+-- les syntaxes de base 
+ const a: string = "bonjour"; // typer une variable 
+ const n :number  = 45 
+ const b : boolean = true
+//pour obliger l'objet user  à avoir les deux clé nom et prenom uniquement
+const user :{ nom:string, prenom: string} = { nom:"sahid" , prenom: "djinadou"}
+//ici la kle prenom est facultatif
+  const user1 :{ nom:string, prenom?: string} = { nom:"sahid" , prenom: "djinadou"}
+// permet de definit une multitude cle de type string  en spécifiant de la clé nom est obligatoire
+  const user2 :{ nom:string, [key:string]:string} = { nom:"sahid" , prenom: "djinadou",profession:"codeur"}
+//un tableau qui peut contenir n'importe que type de variable
+const arr : any[] = ["nom",15,true]
+// on peut typé les function 
+ function prinId( e: type du paramettre ):type de la valeur de retour de la fonction{
+    //attention si ca ne retourne rien alors on met : void
+ }
+
+const compteur  = document.querySelector('#compteur') as HTMLButtonElement
+
+compteur?.addEventListener("click",increment)
+// si compteur exist et seulement si compteur existe de l'écouter et d'actionner la function
+
+**Type Narrowing 
+c'est un systeme qui va permettre a Ts d'éliminer de types
+function example (a:string |boolean,b : string | number){
+    if(a === b){
+        console.log(typeof a);
+    }
+}
+
+à l'initiale le parametre a est soit un string ou un boolean et le paramettre b est soit un string ou un number
+ du le principe du narrowing permet de dire si c'est vérifier que a et b soient egaux alors cela signifie que a 
+et b garderons les type qu'il ont en commun .Toutes fois si une condition ne sera jamais possible 
+alors le type sera never
+function isDate(a:any):a is Date {
+    return a instanceof Date
+}
+// la valeur de retour est de type date
